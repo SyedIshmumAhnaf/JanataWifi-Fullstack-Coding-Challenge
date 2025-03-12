@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Table Styles */
+.dataTable {
+  @apply min-h-screen bg-gray-100 p-6;
+}
+
+.tableTitle {
+  @apply text-3xl font-bold text-center mb-6;
+}
+
+.tableWrapper {
+  @apply overflow-x-auto;
+}
+
+.table {
+  @apply min-w-full bg-white shadow-md rounded-lg;
+}
+
+.tableHeader {
+  @apply bg-blue-500 text-white;
+}
+
+.tableHeader th {
+  @apply py-2 px-4;
+}
+
+.tableRow {
+  @apply border-b hover:bg-gray-200;
+}
+
+.tableCell {
+  @apply py-2 px-4 text-center;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin-bottom: 10px;
+}
+
+.loader-text { 
+  font-size: 1.2rem; 
+  color: #333; 
+  text-align: center; 
+}
+
+/* Reference:  W3Schools: https://www.w3schools.com/howto/howto_css_loader.asp*/
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

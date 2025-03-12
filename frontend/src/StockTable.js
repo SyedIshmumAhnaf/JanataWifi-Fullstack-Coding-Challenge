@@ -1,35 +1,39 @@
+import "./styles.css";
+
 const StockTable = ({ stocks }) => {
     return (
-        <div className="dataTable">
-        <h1>Stock Market Data</h1>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Trade Code</th>
-              <th>High</th>
-              <th>Low</th>
-              <th>Open</th>
-              <th>Close</th>
-              <th>Volume</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stocks && stocks.map((stocks, index) => (
-              <tr key={index}>
-                <td>{stocks.date}</td>
-                <td>{stocks.trade_code}</td>
-                <td>{stocks.high}</td>
-                <td>{stocks.low}</td>
-                <td>{stocks.open}</td>
-                <td>{stocks.close}</td>
-                <td>{stocks.volume}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-}
+        <div className="tableContainer">
+          <h1 className="tableTitle">Stock Market Data</h1>
+          <div className="tableWrapper">
+            <table className="table">
+              <thead className="tableHeader">
+                <tr>
+                  <th>Date</th>
+                  <th>Trade Code</th>
+                  <th>High</th>
+                  <th>Low</th>
+                  <th>Open</th>
+                  <th>Close</th>
+                  <th>Volume</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stocks.map((stock, index) => (
+                  <tr key={index} className="tableRow">
+                    <td className="tableCell">{stock.date}</td>
+                    <td className="tableCell">{stock.trade_code}</td>
+                    <td className="tableCell">{stock.high}</td>
+                    <td className="tableCell">{stock.low}</td>
+                    <td className="tableCell">{stock.open}</td>
+                    <td className="tableCell">{stock.close}</td>
+                    <td className="tableCell">{stock.volume}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+    }
    
 export default StockTable;

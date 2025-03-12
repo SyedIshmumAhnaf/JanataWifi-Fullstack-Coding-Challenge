@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'; //useState and useEffect are hooks needed to hold state and re-render components based on circumstances
 import StockTable from './StockTable';
+import "./styles.css";
 
 function Home() {
     const [stocks, setStocks] = useState(null);
@@ -17,8 +18,13 @@ function Home() {
     }, [])
 
     return (
-        <div className="home">
-            { isPending && <div>Loading...</div> }
+        <div className="home">  
+            {isPending && (
+            <div className="loader-container">
+                <div className="loader"></div>
+                <div className="loader-text">Loading...</div>
+            </div>
+            )}
             {stocks && <StockTable stocks={stocks} />}
         </div>
     );
