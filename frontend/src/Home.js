@@ -17,8 +17,8 @@ function Home() {
         });
     }, []);
 
-    const handleDelete = (date) => {
-        fetch(`http://127.0.0.1:5000/api/stocks/${date}`, {
+    const handleDelete = (date, trade_code) => {
+        fetch(`http://127.0.0.1:5000/api/stocks/${date}/${trade_code}`, {
             method: 'DELETE',
         })
         .then(response => {
@@ -28,8 +28,7 @@ function Home() {
             return response.json();
         })
         .then(data => {
-            console.log('Stock deleted:', data);
-            setStocks(prevStocks => prevStocks.filter(stock => stock.date !== date));
+            setStocks(prevStocks => prevStocks.filter(stock => !(stock.date === date && stock.trade_code === trade_code)));
         })
     }
 

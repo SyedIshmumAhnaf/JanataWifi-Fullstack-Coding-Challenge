@@ -15,6 +15,7 @@ const StockTable = ({ stocks, handleDelete }) => {
                   <th>Open</th>
                   <th>Close</th>
                   <th>Volume</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -28,7 +29,7 @@ const StockTable = ({ stocks, handleDelete }) => {
                     <td className="tableCell">{stock.close}</td>
                     <td className="tableCell">{stock.volume}</td>
                     <td className="tableCell">
-                      <button className="deleteButton" onClick={() => handleDelete(stock.date)}>Delete</button>
+                      <button className="deleteButton" onClick={() => handleDelete(stock.date, stock.trade_code)}>Delete</button>
                     </td>
                   </tr>
                 ))}

@@ -43,11 +43,13 @@ def add_stock():
     cursor.execute(sql, values)
     db.commit()
     return jsonify({"message": "Stock added"})
+
+
 '''
-@app.route('/api/stocks/<string:date>', methods=['DELETE'])
-def delete_stock(date):
-    sql = "DELETE FROM stocks WHERE date=%s"
-    values = (date,)
+@app.route('/api/stocks/<string:date>/<string:trade_code>', methods=['DELETE'])
+def delete_stock(date,trade_code):
+    sql = "DELETE FROM stocks WHERE date=%s AND trade_code=%s"
+    values = (date, trade_code)
     cursor.execute(sql, values)
     db.commit()
     return jsonify({"message": "Stock deleted"})
