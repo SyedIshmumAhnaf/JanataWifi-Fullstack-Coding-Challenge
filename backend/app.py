@@ -1,11 +1,10 @@
-# Flask Basic Setup
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 import mysql.connector
 
 app = Flask(__name__)
-CORS(app) # Allow CORS for all routes
+CORS(app) 
 
 db = mysql.connector.connect(
     host="localhost",
@@ -16,7 +15,7 @@ db = mysql.connector.connect(
 cursor = db.cursor(dictionary=True)
 
 with open('stock_market_data.json') as data:
-    stock_data = json.load(data) #reading from json file and storing it in stock_data
+    stock_data = json.load(data) 
 
 @app.route('/api/stocks', methods=['GET'])
 def get_stocks():
@@ -35,16 +34,6 @@ def update_stock(id):
     db.commit()
     return jsonify({"message": "Stock updated"})
 
-@app.route('/api/stocks', methods=['POST'])
-def add_stock():
-    stock = request.json
-    sql = "INSERT INTO stocks (date, trade_code, high, low, open, close, volume) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    values = (stock['date'], stock['trade_code'], stock['high'], stock['low'], stock['open'], stock['close'], stock['volume'])
-    cursor.execute(sql, values)
-    db.commit()
-    return jsonify({"message": "Stock added"})
-
-
 '''
 @app.route('/api/stocks/<string:date>/<string:trade_code>', methods=['DELETE'])
 def delete_stock(date,trade_code):
@@ -53,6 +42,15 @@ def delete_stock(date,trade_code):
     cursor.execute(sql, values)
     db.commit()
     return jsonify({"message": "Stock deleted"})
+
+@app.route('/api/stocks', methods=['POST'])
+def add_stock():
+    stock = request.json
+    sql = "INSERT INTO stocks (date, trade_code, high, low, open, close, volume) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    values = (stock['date'], stock['trade_code'], stock['high'], stock['low'], stock['open'], stock['close'], stock['volume'])
+    cursor.execute(sql, values)
+    db.commit()
+    return jsonify({"message": "Stock added"})
 '''
 @app.route('/api/hello', methods=['GET'])
 def hello():
