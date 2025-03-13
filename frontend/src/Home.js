@@ -2,17 +2,22 @@ import {useState, useEffect} from 'react'; //useState and useEffect are hooks ne
 import StockTable from './StockTable';
 import AddStock from './AddStock';
 import StockGraph from './StockGraph';
+import StockAnalytics from './StockAnalytics';
 import "./styles.css";
 
 function Home() {
     const [stocks, setStocks] = useState(null);
     const [isPending, setIsPending] = useState(true);
     const [showForm, setShowForm] = useState(false);
+    const [showGraphs, setShowGraphs] = useState(false);
 
     const toggleForm = () => {
         setShowForm(!showForm);
     };
-    
+
+    const toggleGraphs = () => {
+        setShowGraphs(!showGraphs);
+    };
 
     useEffect(() => {
         fetch("http://127.0.0.1:5000/api/stocks") //reference Net Ninja YouTube
@@ -64,6 +69,10 @@ function Home() {
             )}
             {stocks && <h1 className="tableTitle">Stock Market Data</h1>}
             {stocks && <StockGraph stocks={stocks} />}
+            {stocks && <button onClick={toggleGraphs} className="toggleButton">
+                {showGraphs ? "Hide Stock Visualizations" : "Show More Stock Visualizations"}
+            </button>}
+            {showGraphs && <StockAnalytics stocks={stocks} />}
             {stocks && <button onClick={toggleForm} className="toggleButton">
                 {showForm ? "Cancel" : "Add Stock"}
             </button>}
