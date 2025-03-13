@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'; //useState and useEffect are hooks needed to hold state and re-render components based on circumstances
 import StockTable from './StockTable';
 import AddStock from './AddStock';
+import StockGraph from './StockGraph';
 import "./styles.css";
 
 function Home() {
@@ -62,6 +63,7 @@ function Home() {
             </div>
             )}
             {stocks && <h1 className="tableTitle">Stock Market Data</h1>}
+            {stocks && <StockGraph stocks={stocks} />}
             {stocks && <button onClick={toggleForm} className="toggleButton">
                 {showForm ? "Cancel" : "Add Stock"}
             </button>}
