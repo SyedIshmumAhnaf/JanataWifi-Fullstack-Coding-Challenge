@@ -17,7 +17,7 @@ const StockGraph = () => {
                 setLoading(false);
 
                 //Fetching full data in the background
-                fetch("http://127.0.0.1:5000/api/stocks?limit=7500")
+                fetch("http://127.0.0.1:5000/api/stocks?limit=5000")
                     .then(res => res.json())
                     .then(fullData => {
                         setStocks(fullData);
@@ -26,12 +26,16 @@ const StockGraph = () => {
             });
     }, []);
 
-    const tradeCodes = [...new Set(stocks.map(stock => stock.trade_code))];
+    const cleanedStocks = stocks.filter(stock => stock.close !== 0 && stock.volume !== 0);
 
+    const tradeCodes = [...new Set(cleanedStocks.map(stock => stock.trade_code))];
+
+    // ✅ Filter by selected trade code
     const filteredStocks = selectedTradeCode
-        ? stocks.filter(stock => stock.trade_code === selectedTradeCode)
-        : stocks;
+        ? cleanedStocks.filter(stock => stock.trade_code === selectedTradeCode)
+        : cleanedStocks;
 
+    // ✅ Sort data by date
     filteredStocks.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     return (
