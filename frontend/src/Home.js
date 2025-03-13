@@ -85,7 +85,7 @@ function Home() {
                 {showForm ? "Cancel" : "Add Stock"}
             </button>}
             {showForm && <AddStock addStock={addStock} />}
-            {stocks && <StockTable stocks={stocks} handleDelete={handleDelete}/>}
+            {stocks && <StockTable stocks={stocks} handleDelete={handleDelete}  setStocks={setStocks}/>}
             <div className="paginationControls">
                 <button onClick={() => { if (offset > 0) setOffset(offset - limit); fetchStocks(offset - limit); }} disabled={offset === 0}>
                     Previous

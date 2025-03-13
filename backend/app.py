@@ -97,11 +97,20 @@ def add_stock():
     cursor.execute(sql, values)
     db.commit()
     return jsonify({"message": "Stock added"})
-'''
-@app.route('/api/hello', methods=['GET'])
-def hello():
-    return jsonify({"message": "Backend is running!"})
-'''
+
+@app.route('/api/stocks/<string:date>/<string:trade_code>', methods=['PUT'])
+def update_stock(date, trade_code):
+    db = get_db_connection()
+    cursor = db.cursor()
+    stock_data = request.json
+
+    sql = "UPDATE stocks SET high = %s, low = %s, open = %s, close = %s, volume = %s WHERE date = %s AND trade_code = %s"
+    values = (stock_data['high'],stock_data['low'],stock_data['open'],stock_data['close'],stock_data['volume'],date,trade_code)
+    cursor.execute(sql, values)
+    db.commit()
+    cursor.close()
+    db.close()
+    return jsonify({"message": "Stock updated successfully"})
 
 if __name__ == '__main__':
     app.run(debug=True)
