@@ -10,6 +10,8 @@ function Home() {
     const [isPending, setIsPending] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [showGraphs, setShowGraphs] = useState(false);
+    const [limit] = useState(20);
+    const [offset, setOffset] = useState(0);
 
     const toggleForm = () => {
         setShowForm(!showForm);
@@ -19,16 +21,22 @@ function Home() {
         setShowGraphs(!showGraphs);
     };
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:5000/api/stocks") //reference Net Ninja YouTube
+    //reference Net Ninja YouTube
+    const fetchStocks = (newOffset = 0) => {
+        setIsPending(true);
+        fetch(`http://127.0.0.1:5000/api/stocks?limit=${limit}&offset=${newOffset}`)
         .then(res => {
-          return res.json();
+            return res.json();
         })
         .then(data => {
-          setIsPending(false);
-          setStocks(data);
+            setIsPending(false);
+            setStocks(data);
         });
-    }, []);
+    };
+    
+    useEffect(() => {
+        fetchStocks(offset);
+    }, [offset]);    
 
     const handleDelete = (date, trade_code) => {
         fetch(`http://127.0.0.1:5000/api/stocks/${date}/${trade_code}`, {
@@ -68,7 +76,7 @@ function Home() {
             </div>
             )}
             {stocks && <h1 className="tableTitle">Stock Market Data</h1>}
-            {stocks && <StockGraph stocks={stocks} />}
+            {stocks && <StockGraph stocks={stocks}/>}
             {stocks && <button onClick={toggleGraphs} className="toggleButton">
                 {showGraphs ? "Hide Stock Visualizations" : "Show More Stock Visualizations"}
             </button>}
@@ -78,6 +86,14 @@ function Home() {
             </button>}
             {showForm && <AddStock addStock={addStock} />}
             {stocks && <StockTable stocks={stocks} handleDelete={handleDelete}/>}
+            <div className="paginationControls">
+                <button onClick={() => { if (offset > 0) setOffset(offset - limit); fetchStocks(offset - limit); }} disabled={offset === 0}>
+                    Previous
+                </button>
+                <button onClick={() => { setOffset(offset + limit); fetchStocks(offset + limit); }}>
+                    Next
+                </button>
+            </div>
         </div>
     );
 }
