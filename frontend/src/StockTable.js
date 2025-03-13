@@ -1,6 +1,6 @@
 import "./styles.css";
 
-const StockTable = ({ stocks }) => {
+const StockTable = ({ stocks, handleDelete }) => {
     return (
         <div className="tableContainer">
           <h1 className="tableTitle">Stock Market Data</h1>
@@ -27,6 +27,9 @@ const StockTable = ({ stocks }) => {
                     <td className="tableCell">{stock.open}</td>
                     <td className="tableCell">{stock.close}</td>
                     <td className="tableCell">{stock.volume}</td>
+                    <td className="tableCell">
+                      <button className="deleteButton" onClick={() => handleDelete(stock.date)}>Delete</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

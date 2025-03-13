@@ -69,3 +69,32 @@
     transform: rotate(360deg);
   }
 }
+
+.editInput {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.deleteButton {
+  background-color: #ff0062;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: #28a745;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.editButton:hover, .saveButton:hover {
+  opacity: 0.8;
+}

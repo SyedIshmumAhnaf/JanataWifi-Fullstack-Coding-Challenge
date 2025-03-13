@@ -15,7 +15,23 @@ function Home() {
           setIsPending(false);
           setStocks(data);
         });
-    }, [])
+    }, []);
+
+    const handleDelete = (date) => {
+        fetch(`http://127.0.0.1:5000/api/stocks/${date}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Stock deleted:', data);
+            setStocks(prevStocks => prevStocks.filter(stock => stock.date !== date));
+        })
+    }
 
     return (
         <div className="home">  
@@ -25,7 +41,7 @@ function Home() {
                 <div className="loader-text">Loading...</div>
             </div>
             )}
-            {stocks && <StockTable stocks={stocks} />}
+            {stocks && <StockTable stocks={stocks} handleDelete={handleDelete}/>}
         </div>
     );
 }

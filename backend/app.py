@@ -1,5 +1,5 @@
 # Flask Basic Setup
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 import mysql.connector
@@ -25,7 +25,32 @@ def get_stocks():
     stocks = cursor.fetchall()
     return jsonify(stocks)
     #return jsonify(stock_data)
+'''
+@app.route('/api/stocks/<int:id>', methods=['PUT'])
+def update_stock(id):
+    stock = request.json
+    sql = "UPDATE stocks SET trade_code=%s, high=%s, low=%s, open=%s, close=%s, volume=%s WHERE id=%s"
+    values = (stock['trade_code'], stock['high'], stock['low'], stock['open'], stock['close'], stock['volume'], id)
+    cursor.execute(sql, values)
+    db.commit()
+    return jsonify({"message": "Stock updated"})
 
+@app.route('/api/stocks', methods=['POST'])
+def add_stock():
+    stock = request.json
+    sql = "INSERT INTO stocks (date, trade_code, high, low, open, close, volume) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    values = (stock['date'], stock['trade_code'], stock['high'], stock['low'], stock['open'], stock['close'], stock['volume'])
+    cursor.execute(sql, values)
+    db.commit()
+    return jsonify({"message": "Stock added"})
+'''
+@app.route('/api/stocks/<string:date>', methods=['DELETE'])
+def delete_stock(date):
+    sql = "DELETE FROM stocks WHERE date=%s"
+    values = (date,)
+    cursor.execute(sql, values)
+    db.commit()
+    return jsonify({"message": "Stock deleted"})
 '''
 @app.route('/api/hello', methods=['GET'])
 def hello():
