@@ -3,7 +3,6 @@ import "./styles.css";
 const StockTable = ({ stocks, handleDelete }) => {
     return (
         <div className="tableContainer">
-          <h1 className="tableTitle">Stock Market Data</h1>
           <div className="tableWrapper">
             <table className="table">
               <thead className="tableHeader">

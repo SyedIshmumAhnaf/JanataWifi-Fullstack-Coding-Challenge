@@ -20,7 +20,7 @@ with open('stock_market_data.json') as data:
 @app.route('/api/stocks', methods=['GET'])
 def get_stocks():
     #cursor.execute("SELECT * FROM stocks LIMIT 100")
-    cursor.execute("SELECT DATE_FORMAT(date, '%Y-%m-%d') as date, trade_code, open, high, low, close, volume FROM stocks LIMIT 100")
+    cursor.execute("SELECT DATE_FORMAT(date, '%Y-%m-%d') as date, trade_code, open, high, low, close, volume FROM stocks LIMIT 1000")
     stocks = cursor.fetchall()
     return jsonify(stocks)
     #return jsonify(stock_data)

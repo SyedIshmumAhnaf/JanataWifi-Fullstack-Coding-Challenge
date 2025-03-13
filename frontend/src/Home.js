@@ -61,9 +61,10 @@ function Home() {
                 <div className="loader-text">Loading...</div>
             </div>
             )}
-            <button onClick={toggleForm} className="toggleButton">
-                {showForm ? "Hide Add Stock Form" : "Show Add Stock Form"}
-            </button>
+            {stocks && <h1 className="tableTitle">Stock Market Data</h1>}
+            {stocks && <button onClick={toggleForm} className="toggleButton">
+                {showForm ? "Cancel" : "Add Stock"}
+            </button>}
             {showForm && <AddStock addStock={addStock} />}
             {stocks && <StockTable stocks={stocks} handleDelete={handleDelete}/>}
         </div>
